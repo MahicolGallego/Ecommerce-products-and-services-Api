@@ -2,98 +2,166 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+  <p align="center">NEST JS</p>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+<p align="center">
+  <img src="https://www.shopweb.in/images/imageforecommercewebsite.jpg" width="100%" >
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## ECOMMERCE PRODUCTOS Y SERVICIOS
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Descripción
 
-## Project setup
+Esta API permite la gestión de una plataforma de comercio electrónico para productos y servicios. Incluye funciones como la gestión del carrito de compras, pedidos, pagos, reembolsos y comparación de productos. Los vendedores pueden gestionar sus cuentas, variantes de productos y horarios de servicio. La API implementa Control de Acceso Basado en Roles (RBAC) para restringir las acciones según los roles de usuario (por ejemplo, comprador, vendedor, administrador) y tipos de vendedor (por ejemplo, tienda, proveedor de servicios). La autenticación está asegurada mediante tokens Bearer, garantizando operaciones seguras en toda la plataforma.
+
+## Requisitos de Software
+
+Antes de comenzar, asegúrate de tener instaladas las siguientes herramientas en tu sistema:
+
+1. **Docker y Docker Compose**
+
+   - Docker: [Descargar e instalar Docker para Windows y macOS](https://www.docker.com/products/docker-desktop/)
+   - Docker para Linux: [Guía de instalación para Linux](https://docs.docker.com/engine/install/)
+   - Docker Compose ya viene incluido con Docker Desktop. En Linux, puedes instalarlo siguiendo [esta guía](https://docs.docker.com/compose/install/).
+
+2. **Node.js** (opcional, solo si deseas ejecutar el proyecto fuera de Docker)
+
+   - Recomendado: [Node.js LTS](https://nodejs.org/) (versión 18 o superior).
+
+3. **Git** (opcional, para clonar el repositorio)
+
+   - [Descargar e instalar Git](https://git-scm.com/)
+
+4. **Editor de código** (opcional, recomendado Visual Studio Code)
+
+   - [Descargar VS Code](https://code.visualstudio.com/)
+
+5. **Cliente para realizar solicitudes HTTP** (opcional)
+
+   - Recomendado: [Postman](https://www.postman.com/downloads/) o [Insomnia](https://insomnia.rest/download).
+
+6. **Gestor de bases de datos** (opcional, para visualizar y administrar la base de datos)
+   - Recomendado: [DBeaver](https://dbeaver.io/download/)
+
+---
+
+## Configuración del Proyecto
+
+### (** Para ejecutar comandos en consola recuerda siempre estar ubicado en la ruta del proyecto**)
+
+### 1. Crear el archivo `.env`
+
+En la raíz del proyecto, debes crear un archivo llamado `.env` basado en el archivo `.env.template` que también se encuentra en la raíz del proyecto.
+
+puedes hacerlo manualmente o por medio de la consola
 
 ```bash
-$ npm install
+cp .env.template .env
 ```
 
-## Compile and run the project
+En este archivo `.env`, configura las siguientes variables según tus necesidades:
+
+- **STAGE**: `dev` o `prod`. Define si el entorno es de desarrollo o producción.
+- **HASH_SALT**: Se recomienda un valor de `12` para el salt utilizado en la encriptación de contraseñas.
+- **DB_HOST**: Debe ser siempre el nombre del servicio definido para la base de datos en el compose.
+- **DB_PORT**: Tiene el valor del puerto dentro del contenedor asignado en el compose para la base de datos.
+
+Ejemplo de archivo `.env`:
+
+```
+STAGE=dev
+HASH_SALT=12
+DB_HOST=postgres-db
+DB_PORT=5432
+DB_USERNAME=myuser
+DB_PASSWORD=mypassword
+DB_NAME=mydatabase
+JWT_SECRET=mysecret
+```
+
+### \*Las variables DB serán las que se emplearán al para configurar las variables de entorno de los contenedores de docker
+
+---
+
+### 2. Requisitos Previos
+
+Asegúrate de que Docker esté instalado y en ejecución antes de continuar. Puedes verificarlo ejecutando:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+docker --version
+docker-compose --version
 ```
 
-## Run tests
+En Linux, si Docker Compose está instalado pero desactivado, actívalo utilizando el siguiente comando:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## Levantar los Contenedores
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Para iniciar el proyecto con Docker, sigue estos pasos:
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+1. Clona el repositorio si aún no lo has hecho:
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+   ```bash
+   git clone <URL_DEL_REPOSITORIO>
+   cd <NOMBRE_DEL_PROYECTO>
+   ```
 
-## Resources
+2. Verifica que tengas un archivo `.env` configurado correctamente en la raíz del proyecto (ver sección anterior).
 
-Check out a few resources that may come in handy when working with NestJS:
+3. Ejecuta el siguiente comando para construir y levantar los contenedores:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+   ```bash
+   docker compose -f docker-compose.yml up --build
+   ```
 
-## Support
+4. Una vez que los contenedores estén levantados, accede a la aplicación y base de datos a través de los puertos locales respectivos configurados en para los servicios en tu archivo `docker-compose` (para re asignar modifica los "ports: -"). Por defecto son:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- **APP**: 3000
+- **DB**: 5433
 
-## Stay in touch
+  Por ejemplos:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+  ```
+  http://localhost:3000
+  ```
 
-## License
+  \*\* En los gestores de bases de datos asegurate de crear las conexiones usando el puerto designado para el servicio de base de datos en el compose. Por ejemplo: 5433
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+5. Para detener los contenedores, utiliza:
+
+   ```bash
+   docker compose down
+   ```
+
+---
+
+## Archivos Relacionados
+
+- **`docker-compose.yml`**: Contiene la configuración de los servicios Docker.
+- **`.env.template`**: Plantilla para configurar las variables de entorno necesarias.
+
+---
+
+## Notas Importantes
+
+- Asegúrate de no compartir tus archivos `.env` en repositorios públicos para evitar exponer información sensible como contraseñas y secretos.
+- Si encuentras algún problema al levantar los contenedores, asegúrate de revisar los logs de Docker ejecutando:
+
+  ```bash
+  docker compose logs
+  ```
+
+---
+
+## Recursos adicionales
+
+### Documentación de la API
+
+- Una vez que el proyecto esté correctamente levantado, podrás acceder a la documentación de los endpoints de la API desde tu navegador. Usa la siguiente URL, sustituyendo (puerto_definido) por el puerto mapeado para la API en el archivo docker-compose.yml.
+  Ejemplo con el puerto por defecto (3000): http://localhost:3000/api/v1/ecommerce-products-and-service/docs
