@@ -164,7 +164,7 @@ Para iniciar el proyecto con Docker, sigue estos pasos:
 ### Documentación Swagger de la API
 
 - Una vez que el proyecto esté correctamente levantado, podrás acceder a la documentación de los endpoints de la API desde tu navegador. Usa la siguiente URL, sustituyendo (puerto_definido) por el puerto mapeado para la API en el archivo docker-compose.yml.
-  Ejemplo con el puerto por defecto (3000): http://localhost:3000/api/v1/ecommerce-products-and-service/docs
+  Ejemplo con el puerto por defecto (3000): http://localhost:3000/ecommerce-products-and-service/api/v1/docs
 
 ### Documentación
 

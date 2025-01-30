@@ -36,7 +36,7 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup(
-    'ecommerce-products-and-service/docs',
+    'ecommerce-products-and-service/api/v1/docs',
     app,
     documentFactory,
   );
