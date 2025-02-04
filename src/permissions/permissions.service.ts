@@ -1,26 +1,53 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePermissionDto } from './dto/create-permission.dto';
-import { UpdatePermissionDto } from './dto/update-permission.dto';
+import { SearchCriteriaPermissionDto } from './dto/search-criteria-permission.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Permissions } from './entities/permission.entity';
+import { Repository } from 'typeorm';
+import { Roles } from 'src/common/constants/enums/roles.enum';
 
 @Injectable()
 export class PermissionsService {
-  create(createPermissionDto: CreatePermissionDto) {
-    return 'This action adds a new permission';
+  constructor(
+    @InjectRepository(Permissions)
+    private readonly permissionsRepository: Repository<Permissions>,
+  ) {}
+
+  async create(createPermissionDto: CreatePermissionDto): Promise<Permissions> {
+    if (
+      createPermissionDto.role === Roles.BUYER &&
+      createPermissionDto.seller_type
+    ) {
+      console.log(`The buyer role cannot be assigned a seller type`);
+      console.log(
+        `Permissions:\n{role: ${createPermissionDto.role}, seller_type: ${createPermissionDto.seller_type}, entity: ${createPermissionDto.entity},  write: ${createPermissionDto.write}, read: ${createPermissionDto.read}, update: ${createPermissionDto.update}, delete: ${createPermissionDto.delete}}`,
+      );
+      return;
+    }
+
+    if (
+      createPermissionDto.role === Roles.SELLER &&
+      !createPermissionDto.seller_type
+    ) {
+      console.log(`The seller role must be assigned a seller type`);
+      console.log(
+        `Permissions:\n{role: ${createPermissionDto.role}, seller_type: ${createPermissionDto.seller_type}, entity: ${createPermissionDto.entity},  write: ${createPermissionDto.write}, read: ${createPermissionDto.read}, update: ${createPermissionDto.update}, delete: ${createPermissionDto.delete}}`,
+      );
+      return;
+    }
+
+    const permissions = await this.findOneBy(createPermissionDto);
+    if (permissions) {
+      console.log(
+        `Permissions:\n{role: ${createPermissionDto.role}, seller_type: ${createPermissionDto.seller_type}, entity: ${createPermissionDto.entity},  write: ${createPermissionDto.write}, read: ${createPermissionDto.read}, update: ${createPermissionDto.update}, delete: ${createPermissionDto.delete}}\nAlready exist`,
+      );
+      return;
+    }
+
+    return await this.permissionsRepository.save(createPermissionDto);
   }
 
-  findAll() {
-    return `This action returns all permissions`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} permission`;
-  }
-
-  update(id: number, updatePermissionDto: UpdatePermissionDto) {
-    return `This action updates a #${id} permission`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} permission`;
+  async findOneBy(searchCriteria: SearchCriteriaPermissionDto) {
+    return await this.permissionsRepository.findOneBy(searchCriteria);
   }
 }

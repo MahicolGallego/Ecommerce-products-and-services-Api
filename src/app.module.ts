@@ -20,6 +20,7 @@ import { PaymentSellersModule } from './payment-sellers/payment-sellers.module';
 import { RefundsModule } from './refunds/refunds.module';
 import { RefundHistoriesModule } from './refund-histories/refund-histories.module';
 import { SellerRefundsModule } from './seller-refunds/seller-refunds.module';
+import { SeedersModule } from './seeders/seeders.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { SellerRefundsModule } from './seller-refunds/seller-refunds.module';
     RefundsModule,
     RefundHistoriesModule,
     SellerRefundsModule,
+    SeedersModule,
   ],
 })
 export class AppModule {}

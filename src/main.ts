@@ -2,6 +2,7 @@ import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { SeedersService } from './seeders/seeders.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -23,6 +24,11 @@ async function bootstrap() {
 
   const reflector = app.get(Reflector);
   app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
+
+  // seeders execute
+  const seedersService = app.get(SeedersService);
+  seedersService.PermissionsSeeder();
+  console.log('Permissions Seeding complete.');
 
   const config = new DocumentBuilder()
     .setTitle('Ecommerce Products And Services API')

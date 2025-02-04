@@ -169,3 +169,7 @@ Para iniciar el proyecto con Docker, sigue estos pasos:
 ### Documentación
 
 - **Esquema de base de datos**: [Ver esquema](https://docs.google.com/document/d/16QMtQIzb7rkdZ5jkL4Vvx2QhP7to6ztt/edit?usp=sharing&ouid=114707876534217405718&rtpof=true&sd=true)
+
+### Documentación Seeder
+
+- **Seeder de permisos**: Agrega los permisos de las acciones que se le permiten realizar a cada rol sobre las entidades del sistema. [Ver seeder](https://drive.google.com/file/d/15SA1Sz4jXURUWGY9wOJUpLMKKKOpg4Pv/view?usp=sharing)
