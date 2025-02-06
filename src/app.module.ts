@@ -21,6 +21,7 @@ import { RefundsModule } from './refunds/refunds.module';
 import { RefundHistoriesModule } from './refund-histories/refund-histories.module';
 import { SellerRefundsModule } from './seller-refunds/seller-refunds.module';
 import { SeedersModule } from './seeders/seeders.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -61,6 +62,7 @@ import { SeedersModule } from './seeders/seeders.module';
     RefundHistoriesModule,
     SellerRefundsModule,
     SeedersModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

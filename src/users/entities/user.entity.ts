@@ -78,7 +78,7 @@ export class User {
     description: 'Temporary token for password recovery',
     nullable: true,
   })
-  @Column({ type: 'varchar', length: 255, nullable: true })
+  @Column({ type: 'varchar', length: 255, nullable: true, default: null })
   @Exclude() // Excluir el token de las respuestas JSON
   reset_password_token: string;
 
