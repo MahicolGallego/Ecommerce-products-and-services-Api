@@ -1,6 +1,7 @@
 import { Roles } from 'src/common/constants/enums/roles.enum';
 import { SellerType } from 'src/common/constants/enums/seller-types.enum';
 import { CreatePermissionDto } from 'src/permissions/dto/create-permission.dto';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 export const PermissionsSeeder: CreatePermissionDto[] = [
   // BUYER permissions
@@ -493,5 +494,71 @@ export const PermissionsSeeder: CreatePermissionDto[] = [
     read: true,
     update: false,
     delete: false,
+  },
+];
+
+// users seeder data----------------------------------------------------------
+
+export const UsersSeeder: CreateUserDto[] = [
+  // Store sellers
+  {
+    name: 'tienda uno',
+    email: 'tienda1@example.com',
+    password: 'Abc1234*',
+    role: Roles.SELLER,
+    seller_type: SellerType.STORE,
+  },
+  {
+    name: 'tienda dos',
+    email: 'tienda2@example.com',
+    password: 'Abc1234*',
+    role: Roles.SELLER,
+    seller_type: SellerType.STORE,
+  },
+  {
+    name: 'tienda tres',
+    email: 'tienda3@example.com',
+    password: 'Abc1234*',
+    role: Roles.SELLER,
+    seller_type: SellerType.STORE,
+  },
+
+  // Service sellers
+  {
+    name: 'servicio uno',
+    email: 'servicio1@example.com',
+    password: 'Abc1234*',
+    role: Roles.SELLER,
+    seller_type: SellerType.SERVICE,
+  },
+  {
+    name: 'servicio dos',
+    email: 'servicio2@example.com',
+    password: 'Abc1234*',
+    role: Roles.SELLER,
+    seller_type: SellerType.SERVICE,
+  },
+
+  // Buyers
+  {
+    name: 'comprador uno',
+    email: 'comprador1@example.com',
+    password: 'Abc1234*',
+    role: Roles.BUYER,
+    seller_type: null,
+  },
+  {
+    name: 'comprador dos',
+    email: 'comprador2@example.com',
+    password: 'Abc1234*',
+    role: Roles.BUYER,
+    seller_type: null,
+  },
+  {
+    name: 'comprador tres',
+    email: 'comprador3@example.com',
+    password: 'Abc1234*',
+    role: Roles.BUYER,
+    seller_type: null,
   },
 ];

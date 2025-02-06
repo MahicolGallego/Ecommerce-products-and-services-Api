@@ -32,6 +32,9 @@ export class UsersService {
         this.configService,
       );
 
+      createUserDto.name = createUserDto.name.toLowerCase().trim();
+      createUserDto.email = createUserDto.email.toLowerCase().trim();
+
       const registeredUser = await this.usersRepository.save(createUserDto);
 
       return plainToClass(User, registeredUser);
@@ -41,6 +44,10 @@ export class UsersService {
         ? ErrorManager.createErrorSignature(error.message)
         : ErrorManager.createErrorSignature('An unexpected error occurred');
     }
+  }
+
+  async findByEmail(email: string) {
+    return await this.usersRepository.findOne({ where: { email } });
   }
 
   findAll() {

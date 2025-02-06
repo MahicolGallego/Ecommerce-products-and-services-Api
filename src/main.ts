@@ -28,7 +28,9 @@ async function bootstrap() {
   // seeders execute
   const seedersService = app.get(SeedersService);
   seedersService.PermissionsSeeder();
-  console.log('Permissions Seeding complete.');
+  console.log('Permissions seeding completes.');
+  seedersService.UsersSeeder();
+  console.log('Users seeding completed.');
 
   const config = new DocumentBuilder()
     .setTitle('Ecommerce Products And Services API')
