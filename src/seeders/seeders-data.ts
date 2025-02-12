@@ -1,6 +1,8 @@
 import { Roles } from 'src/common/constants/enums/roles.enum';
 import { SellerType } from 'src/common/constants/enums/seller-types.enum';
 import { CreatePermissionDto } from 'src/permissions/dto/create-permission.dto';
+import { CreateProductVariantDto } from 'src/product-variants/dto/create-product-variant.dto';
+import { CreateProductDto } from 'src/products/dto/create-product.dto';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 export const PermissionsSeeder: CreatePermissionDto[] = [
@@ -560,5 +562,262 @@ export const UsersSeeder: CreateUserDto[] = [
     password: 'Abc1234*',
     role: Roles.BUYER,
     seller_type: null,
+  },
+];
+
+// products and its variants seeder data ---------------------------------------
+export type seederProducts = {
+  email_seller: string;
+  product: CreateProductDto;
+  variants?: Omit<CreateProductVariantDto, 'product_id'>[];
+};
+
+export const ProductsAndVariantsSeeder: seederProducts[] = [
+  // seller/store: tienda1@example.com
+  {
+    email_seller: 'tienda1@example.com',
+    product: {
+      name: 'smartphone x',
+      description: 'high-end smartphone with advanced features',
+      reference: 'sm-x2024',
+      size: 'l',
+      color: 'black',
+      price: 799.99,
+      stock: 50,
+    },
+    variants: [
+      {
+        size: 'm',
+        color: 'white',
+        price: 799.99,
+        stock: 30,
+      },
+      {
+        size: 's',
+        color: 'blue',
+        price: 799.99,
+        stock: 20,
+      },
+    ],
+  },
+  {
+    email_seller: 'tienda1@example.com',
+    product: {
+      name: 'laptop pro',
+      description: 'powerful laptop for professionals',
+      reference: 'lp-pro2024',
+      size: '15"',
+      color: 'silver',
+      price: 1299.99,
+      stock: 20,
+    },
+    variants: [
+      {
+        size: '13"',
+        color: 'space gray',
+        price: 1199.99,
+        stock: 15,
+      },
+    ],
+  },
+  {
+    email_seller: 'tienda1@example.com',
+    product: {
+      name: 'tablet lite',
+      description: 'lightweight tablet for everyday use',
+      reference: 'tb-lite2024',
+      size: '10"',
+      color: 'black',
+      price: 299.99,
+      stock: 60,
+    },
+  },
+  {
+    email_seller: 'tienda1@example.com',
+    product: {
+      name: 'gaming monitor',
+      description: '27-inch gaming monitor with 144hz refresh rate',
+      reference: 'gm-27x2024',
+      size: '27"',
+      color: 'black',
+      price: 399.99,
+      stock: 25,
+    },
+  },
+  {
+    email_seller: 'tienda1@example.com',
+    product: {
+      name: 'wireless earbuds',
+      description: 'noise-cancelling wireless earbuds',
+      reference: 'we-2024',
+      size: 'one size',
+      color: 'white',
+      price: 149.99,
+      stock: 100,
+    },
+  },
+  {
+    email_seller: 'tienda1@example.com',
+    product: {
+      name: 'smartwatch pro',
+      description: 'smartwatch with health monitoring features',
+      reference: 'sw-pro2024',
+      size: 'm',
+      color: 'black',
+      price: 249.99,
+      stock: 40,
+    },
+  },
+
+  // seller/store: tienda2@example.com
+  {
+    email_seller: 'tienda2@example.com',
+    product: {
+      name: 'smartphone x',
+      description: 'high-end smartphone with advanced features',
+      reference: 'sm-x2024',
+      size: 'l',
+      color: 'black',
+      price: 789.99,
+      stock: 40,
+    },
+    variants: [
+      {
+        size: 'm',
+        color: 'white',
+        price: 789.99,
+        stock: 25,
+      },
+    ],
+  },
+  {
+    email_seller: 'tienda2@example.com',
+    product: {
+      name: 'tablet lite',
+      description: 'lightweight tablet for everyday use',
+      reference: 'tb-lite2024',
+      size: '10"',
+      color: 'black',
+      price: 299.99,
+      stock: 60,
+    },
+  },
+  {
+    email_seller: 'tienda2@example.com',
+    product: {
+      name: 'gaming keyboard',
+      description: 'mechanical gaming keyboard with rgb lighting',
+      reference: 'gk-2024',
+      size: 'standard',
+      color: 'black',
+      price: 99.99,
+      stock: 75,
+    },
+  },
+  {
+    email_seller: 'tienda2@example.com',
+    product: {
+      name: 'bluetooth speaker',
+      description: 'portable bluetooth speaker with 20-hour battery life',
+      reference: 'bs-2024',
+      size: 'one size',
+      color: 'blue',
+      price: 79.99,
+      stock: 50,
+    },
+  },
+  {
+    email_seller: 'tienda2@example.com',
+    product: {
+      name: '4k smart tv',
+      description: '55-inch 4k smart tv with hdr',
+      reference: 'tv-55x2024',
+      size: '55"',
+      color: 'black',
+      price: 699.99,
+      stock: 15,
+    },
+  },
+
+  // seller/store: tienda3@example.com
+  {
+    email_seller: 'tienda3@example.com',
+    product: {
+      name: 'smartphone x',
+      description: 'high-end smartphone with advanced features',
+      reference: 'sm-x2024',
+      size: 'l',
+      color: 'black',
+      price: 809.99,
+      stock: 35,
+    },
+    variants: [
+      {
+        size: 'm',
+        color: 'white',
+        price: 809.99,
+        stock: 20,
+      },
+    ],
+  },
+  {
+    email_seller: 'tienda3@example.com',
+    product: {
+      name: 'gaming monitor',
+      description: '27-inch gaming monitor with 144hz refresh rate',
+      reference: 'gm-27x2024',
+      size: '27"',
+      color: 'black',
+      price: 399.99,
+      stock: 25,
+    },
+  },
+  {
+    email_seller: 'tienda3@example.com',
+    product: {
+      name: 'wireless mouse',
+      description: 'ergonomic wireless mouse with customizable buttons',
+      reference: 'wm-2024',
+      size: 'one size',
+      color: 'black',
+      price: 49.99,
+      stock: 80,
+    },
+  },
+  {
+    email_seller: 'tienda3@example.com',
+    product: {
+      name: 'noise-cancelling headphones',
+      description: 'over-ear headphones with active noise cancellation',
+      reference: 'nc-2024',
+      size: 'one size',
+      color: 'black',
+      price: 199.99,
+      stock: 30,
+    },
+  },
+  {
+    email_seller: 'tienda3@example.com',
+    product: {
+      name: 'external ssd',
+      description: '1tb external ssd with usb-c connectivity',
+      reference: 'ssd-1tb2024',
+      size: 'one size',
+      color: 'silver',
+      price: 129.99,
+      stock: 40,
+    },
+  },
+  {
+    email_seller: 'tienda3@example.com',
+    product: {
+      name: 'smart thermostat',
+      description: 'wi-fi enabled smart thermostat',
+      reference: 'st-2024',
+      size: 'one size',
+      color: 'white',
+      price: 149.99,
+      stock: 20,
+    },
   },
 ];

@@ -1,7 +1,7 @@
 import { OmitType, PartialType } from '@nestjs/swagger';
 import { CreateProductVariantDto } from './create-product-variant.dto';
 
-export class UpdateProductVariantDto extends OmitType(
+export class SearchCriteriaProductVariantDto extends OmitType(
   PartialType(CreateProductVariantDto),
-  ['product_id'] as const,
+  ['price', 'stock'] as const,
 ) {}
