@@ -1,7 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty, IsString, Max, Min } from 'class-validator';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsString,
+  Matches,
+  Max,
+  Min,
+} from 'class-validator';
+import { timeFormatRegex } from 'src/common/constants/regex/time-format.regex';
 
-export class CreateServiceScheduleDto {
+export class SearchCriteriaServiceScheduleDto {
   @ApiProperty({
     example: '123e4567-e89b-12d3-a456-426614174000',
     description: 'Unique identifier of the associated service (UUID)',
@@ -21,26 +29,26 @@ export class CreateServiceScheduleDto {
   day_of_week: number;
 
   @ApiProperty({
-    example: '9',
+    example: '09:00:00',
     description: 'Start time of the service',
     minimum: 6,
     maximum: 17,
   })
   @IsNotEmpty()
-  @IsInt()
-  @Min(6)
-  @Max(17)
-  start_time: number;
+  @IsString()
+  @Matches(timeFormatRegex, {
+    message: 'start time must be in HH:MM:SS format',
+  })
+  start_time: string;
 
   @ApiProperty({
-    example: '17',
+    example: '17:00:00',
     description: 'End time of the service',
-    minimum: 7,
-    maximum: 18,
   })
   @IsNotEmpty()
-  @IsInt()
-  @Min(7)
-  @Max(18)
-  end_time: number;
+  @IsString()
+  @Matches(timeFormatRegex, {
+    message: 'end time must be in HH:MM:SS format',
+  })
+  end_time: string;
 }

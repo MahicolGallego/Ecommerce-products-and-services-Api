@@ -43,14 +43,14 @@ export class ProductsService {
           newProduct = await transactionalEntityManager.save(Product, {
             seller_id,
             name: createProductDto.name,
-            description: createProductDto.description,
-            reference: createProductDto.reference,
+            description: createProductDto.description.toLowerCase().trim(),
+            reference: createProductDto.reference.toLowerCase().trim(),
           });
 
           const productVariant: CreateProductVariantDto = {
             product_id: newProduct.id,
-            size: createProductDto.size,
-            color: createProductDto.color,
+            size: createProductDto.size.toLowerCase().trim(),
+            color: createProductDto.color.toLowerCase().trim(),
             price: createProductDto.price,
             stock: createProductDto.stock,
           };

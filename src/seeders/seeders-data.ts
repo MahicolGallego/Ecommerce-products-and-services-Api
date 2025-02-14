@@ -1,8 +1,11 @@
+import { DurationType } from 'src/common/constants/enums/duration-types.enum';
 import { Roles } from 'src/common/constants/enums/roles.enum';
 import { SellerType } from 'src/common/constants/enums/seller-types.enum';
 import { CreatePermissionDto } from 'src/permissions/dto/create-permission.dto';
 import { CreateProductVariantDto } from 'src/product-variants/dto/create-product-variant.dto';
 import { CreateProductDto } from 'src/products/dto/create-product.dto';
+import { CreateServiceScheduleDto } from 'src/service-schedules/dto/create-service-schedule.dto';
+import { CreateServiceDto } from 'src/services/dto/create-service.dto';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 export const PermissionsSeeder: CreatePermissionDto[] = [
@@ -819,5 +822,93 @@ export const ProductsAndVariantsSeeder: seederProducts[] = [
       price: 149.99,
       stock: 20,
     },
+  },
+];
+
+// service and its schedules seeder data ---------------------------------------
+export type seederService = {
+  email_seller: string;
+  service: CreateServiceDto;
+  schedules: Omit<CreateServiceScheduleDto, 'service_id'>[];
+};
+
+export const ServicesAndSchedulesSeeder: seederService[] = [
+  // Seller: servicio1@example.com
+  {
+    email_seller: 'servicio1@example.com',
+    service: {
+      name: 'consulting service',
+      description: 'detailed description of the consulting service.',
+      price: 49.99,
+      duration: 2,
+      duration_type: DurationType.HOURS,
+      address: '123 main street, city',
+    },
+    schedules: [
+      {
+        day_of_week: 1,
+        start_time: 9,
+        end_time: 12,
+      },
+      {
+        day_of_week: 1,
+        start_time: 14,
+        end_time: 17,
+      },
+      {
+        day_of_week: 2,
+        start_time: 10,
+        end_time: 13,
+      },
+      {
+        day_of_week: 3,
+        start_time: 11,
+        end_time: 14,
+      },
+      {
+        day_of_week: 4,
+        start_time: 15,
+        end_time: 18,
+      },
+    ],
+  },
+
+  // Seller: servicio2@example.com
+  {
+    email_seller: 'servicio2@example.com',
+    service: {
+      name: 'virtual yoga classes',
+      description: 'relaxing yoga classes for all levels.',
+      price: 29.99,
+      duration: 1,
+      duration_type: DurationType.HOURS,
+    },
+    schedules: [
+      {
+        day_of_week: 1,
+        start_time: 8,
+        end_time: 10,
+      },
+      {
+        day_of_week: 2,
+        start_time: 16,
+        end_time: 18,
+      },
+      {
+        day_of_week: 3,
+        start_time: 9,
+        end_time: 11,
+      },
+      {
+        day_of_week: 4,
+        start_time: 14,
+        end_time: 16,
+      },
+      {
+        day_of_week: 5,
+        start_time: 10,
+        end_time: 12,
+      },
+    ],
   },
 ];

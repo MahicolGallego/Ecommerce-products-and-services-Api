@@ -33,6 +33,8 @@ async function bootstrap() {
   console.log('Users seeding completed.');
   seedersService.ProductAndProductVariantsSeeder();
   console.log('Products and its Variants seeding completed.');
+  seedersService.ServicesAndServiceSchedulesSeeder();
+  console.log('Services and its Schedules seeding completed.');
 
   const config = new DocumentBuilder()
     .setTitle('Ecommerce Products And Services API')

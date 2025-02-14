@@ -32,7 +32,7 @@ export class ServiceSchedule {
 
   @ApiProperty({
     example: 1,
-    description: 'Day of the week (0 = Sunday, 6 = Saturday)',
+    description: 'Day of the week (1 = Monday, 7 = Sunday)',
   })
   @Column({ type: 'smallint', nullable: false })
   @Expose()

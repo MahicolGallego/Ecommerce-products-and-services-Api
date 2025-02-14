@@ -172,4 +172,6 @@ Para iniciar el proyecto con Docker, sigue estos pasos:
 
 ### Documentación Seeder
 
-- **Seeder de permisos**: Agrega los permisos de las acciones que se le permiten realizar a cada rol sobre las entidades del sistema. [Ver seeder](https://drive.google.com/file/d/15SA1Sz4jXURUWGY9wOJUpLMKKKOpg4Pv/view?usp=sharing)
+- **Seeder de permisos**: Agrega los permisos de las acciones que se le permiten realizar a cada rol sobre las entidades del sistema. [Ver documentación de seeder de permisos](https://drive.google.com/file/d/15SA1Sz4jXURUWGY9wOJUpLMKKKOpg4Pv/view?usp=sharing)
+
+- **Seeder de datos iniciales(pruebas)**: Se agregaron datos iniciales para facilitar pruebas de implementación de las funcionalidades de la API, seeders para usuarios, productos, variantes de productos, servicios y horarios de servicios. [Ver documentación de seeders de datos de prueba](https://drive.google.com/file/d/1iFdSL0laEHvPM2J-3eN6Y5Tfh8jf9xq7/view?usp=sharing)
