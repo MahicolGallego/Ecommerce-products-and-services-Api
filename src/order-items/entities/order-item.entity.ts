@@ -17,7 +17,7 @@ import { Refund } from '../../refunds/entities/refund.entity';
 import { PaymentSeller } from '../../payment-sellers/entities/payment-seller.entity';
 import { ServiceBooking } from '../../service-bookings/entities/service-booking.entity';
 import { OrderItemStatus } from 'src/common/constants/enums/order-item-status.enum';
-import { CancelledBy } from 'src/common/constants/cancelled-by.enum';
+import { CancelledBy } from 'src/common/constants/enums/cancelled-by.enum';
 
 @Entity('order_item')
 export class OrderItem {

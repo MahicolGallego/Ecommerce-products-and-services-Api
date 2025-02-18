@@ -12,6 +12,7 @@ import { Expose, Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../../users/entities/user.entity';
 import { OrderItem } from '../../order-items/entities/order-item.entity';
+import { PaymentStatus } from 'src/common/constants/enums/payment-status.enum';
 
 @Entity('payment_seller')
 export class PaymentSeller {
@@ -62,12 +63,20 @@ export class PaymentSeller {
   platform_fee: number;
 
   @ApiProperty({
-    example: '1234567890',
-    description: 'Seller payment account',
+    example: 'b4c70f6b12e44a7bbd7e52e2fbd6541a',
+    description: 'Token representing the seller’s payment method',
   })
-  @Column({ type: 'varchar', length: 50 })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   @Expose()
-  payment_account: string;
+  payment_account_token: string;
+
+  @ApiProperty({
+    example: PaymentStatus.SUCCESS,
+    description: 'Status of the payment (pending, success, failed)',
+  })
+  @Column({ type: 'enum', enum: PaymentStatus, default: PaymentStatus.PENDING })
+  @Expose()
+  status: PaymentStatus;
 
   @ApiProperty({
     example: '2023-10-01T12:00:00Z',

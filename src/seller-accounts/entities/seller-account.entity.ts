@@ -10,7 +10,6 @@ import {
 import { Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../../users/entities/user.entity';
-import { AccountType } from 'src/common/constants/enums/account-types.enum';
 
 @Entity('seller_account')
 export class SellerAccount {
@@ -30,29 +29,12 @@ export class SellerAccount {
   seller_id: string;
 
   @ApiProperty({
-    example: '1234567890',
-    description: 'Bank account number of the seller',
+    example: 'b4c70f6b12e44a7bbd7e52e2fbd6541a',
+    description: 'Token representing the seller’s payment method',
   })
-  @Column({ type: 'varchar', length: 50 })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   @Expose()
-  account_number: string;
-
-  @ApiProperty({
-    example: 'current',
-    description: 'Type of bank account (current, savings)',
-    enum: AccountType,
-  })
-  @Column({ type: 'enum', enum: AccountType })
-  @Expose()
-  account_type: AccountType;
-
-  @ApiProperty({
-    example: 'Bank of America',
-    description: 'Name of the bank',
-  })
-  @Column({ type: 'varchar', length: 100 })
-  @Expose()
-  bank_name: string;
+  account_token: string;
 
   @ApiProperty({
     example: '2023-10-01T12:00:00Z',
