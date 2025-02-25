@@ -5,6 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Permissions } from './entities/permission.entity';
 import { Repository } from 'typeorm';
 import { Roles } from 'src/common/constants/enums/roles.enum';
+import { SellerType } from 'src/common/constants/enums/seller-types.enum';
+import { ResourcesKeys } from 'src/common/decorators/rbac.decorator';
 
 @Injectable()
 export class PermissionsService {
@@ -45,6 +47,19 @@ export class PermissionsService {
     }
 
     return await this.permissionsRepository.save(createPermissionDto);
+  }
+
+  async findOne(criteria: {
+    role: Roles;
+    entity: ResourcesKeys;
+    seller_type: SellerType;
+  }) {
+    const queryFields = {
+      role: criteria.role,
+      entity: criteria.entity,
+      seller_type: criteria.seller_type,
+    };
+    return await this.permissionsRepository.findOneBy(queryFields);
   }
 
   async findOneBy(searchCriteria: SearchCriteriaPermissionDto) {

@@ -48,16 +48,23 @@ export class AuthService {
   }
 
   generateJwtToken(user: User): ILoginResponse {
-    const payload: IPayloadToken = {
-      sub: user.id,
-      role: user.role,
-    };
+    try {
+      const payload: IPayloadToken = {
+        sub: user.id,
+        role: user.role,
+      };
 
-    const userToResponse = plainToClass(User, user);
+      const userToResponse = plainToClass(User, user);
 
-    return {
-      access_token: this.jwtService.sign(payload),
-      user: userToResponse,
-    };
+      return {
+        access_token: this.jwtService.sign(payload),
+        user: userToResponse,
+      };
+    } catch (error) {
+      console.error(error);
+      throw error instanceof Error
+        ? ErrorManager.createErrorSignature(error.message)
+        : ErrorManager.createErrorSignature('An unexpected error occurred');
+    }
   }
 }
