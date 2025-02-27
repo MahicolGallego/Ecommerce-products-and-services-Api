@@ -86,7 +86,7 @@ export class SeedersService {
       if (!seller) {
         console.log(`Error\nSeller not found:\n{email: ${email_seller}}`);
         console.log(
-          `Product and its variants have not been inserted\n${JSON.stringify(product)}\nvariants\n${variants.length ? JSON.stringify(variants) : 'No variants'}`,
+          `Product and its variants have not been inserted\n${JSON.stringify(product)}\nvariants\n${variants && variants.length ? JSON.stringify(variants) : 'No variants'}`,
         );
         continue;
       }
@@ -112,7 +112,7 @@ export class SeedersService {
         );
       }
 
-      if (variants) {
+      if (variants && variants.length) {
         for (const variant of variants) {
           const { size, color } = variant;
           const product_id = newProduct ? newProduct.id : productExist.id;

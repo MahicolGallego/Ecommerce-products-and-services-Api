@@ -27,13 +27,13 @@ async function bootstrap() {
 
   // seeders execute
   const seedersService = app.get(SeedersService);
-  seedersService.PermissionsSeeder();
+  await seedersService.PermissionsSeeder();
   console.log('Permissions seeding completes.');
-  seedersService.UsersSeeder();
+  await seedersService.UsersSeeder();
   console.log('Users seeding completed.');
-  seedersService.ProductAndProductVariantsSeeder();
+  await seedersService.ProductAndProductVariantsSeeder();
   console.log('Products and its Variants seeding completed.');
-  seedersService.ServicesAndServiceSchedulesSeeder();
+  await seedersService.ServicesAndServiceSchedulesSeeder();
   console.log('Services and its Schedules seeding completed.');
 
   const config = new DocumentBuilder()

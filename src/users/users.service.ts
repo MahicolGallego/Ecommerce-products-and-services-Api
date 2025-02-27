@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { hashPassword } from 'src/common/helpers/hash-password.helper';
 import { ConfigService } from '@nestjs/config';
 import { ErrorManager } from 'src/common/exception-filters/error-manager.filter';
@@ -54,15 +54,80 @@ export class UsersService {
     return `This action returns all users`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    return await this.usersRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async findByPasswordResetToken(token: string) {
+    return await this.usersRepository.findOne({
+      where: { reset_password_token: token },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async savePasswordResetToken(user_id: string, token: string) {
+    try {
+      const results = await this.usersRepository.update(
+        { id: user_id },
+        { reset_password_token: token },
+      );
+      if (!results.affected)
+        throw new ErrorManager({
+          type: 'NOT_FOUND',
+          message: 'The token has not been set for the requesting user',
+        });
+    } catch (error) {
+      console.log(error);
+      throw error instanceof Error
+        ? ErrorManager.createErrorSignature(error.message)
+        : ErrorManager.createErrorSignature('An unexpected error occurred');
+    }
+  }
+
+  async updatePassword(
+    user_id: string,
+    hashedPassword: string,
+    transactionalEntityManager: EntityManager,
+  ) {
+    try {
+      const results = await transactionalEntityManager.update(
+        User,
+        { id: user_id },
+        { password: hashedPassword },
+      );
+      if (!results.affected)
+        throw new ErrorManager({
+          type: 'NOT_FOUND',
+          message: 'The password has not been updated for the requesting user',
+        });
+    } catch (error) {
+      console.log(error);
+      throw error instanceof Error
+        ? ErrorManager.createErrorSignature(error.message)
+        : ErrorManager.createErrorSignature('An unexpected error occurred');
+    }
+  }
+
+  async deletePasswordResetToken(
+    user_id: string,
+    transactionalEntityManager: EntityManager,
+  ) {
+    try {
+      const results = await transactionalEntityManager.update(
+        User,
+        { id: user_id },
+        { reset_password_token: null },
+      );
+
+      if (!results.affected)
+        throw new ErrorManager({
+          type: 'NOT_FOUND',
+          message: 'The password reset token has not been deleted',
+        });
+    } catch (error) {
+      console.log(error);
+      throw error instanceof Error
+        ? ErrorManager.createErrorSignature(error.message)
+        : ErrorManager.createErrorSignature('An unexpected error occurred');
+    }
   }
 }

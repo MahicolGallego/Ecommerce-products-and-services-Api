@@ -15,7 +15,10 @@ import {
   ApiBody,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
   ApiOperation,
+  ApiParam,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -24,6 +27,8 @@ import { User } from 'src/users/entities/user.entity';
 import { Request } from 'express';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { ILoginResponse } from 'src/common/interfaces/auth/login-response.interface';
+import { ForgotPasswordDTO } from 'src/users/dto/forgot-password.dto';
+import { ResetPasswordDto } from 'src/users/dto/reset-password.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -95,5 +100,129 @@ export class AuthController {
     const user = req.user as User;
     const JwtTokenAndUser = this.authService.generateJwtToken(user);
     return JwtTokenAndUser;
+  }
+
+  @Post('forgot-password')
+  @ApiOperation({ summary: 'Send password recovery email' })
+  @ApiBody({
+    description: 'Email address to send the password recovery link.',
+    type: ForgotPasswordDTO,
+  })
+  @ApiCreatedResponse({
+    description: 'Password recovery email sent successfully.',
+  })
+  @ApiNotFoundResponse({
+    description: 'User not found for the provided email address.',
+    schema: {
+      example: {
+        statusCode: 404,
+        message: 'User not found',
+        error: 'Not Found',
+      },
+    },
+  })
+  @ApiBadRequestResponse({
+    description: 'Invalid email format or other validation errors.',
+  })
+  @ApiInternalServerErrorResponse({
+    description:
+      'Internal server error when trying to send the recovery email.',
+  })
+  async forgotPassword(
+    @Body() forgotPasswordDto: ForgotPasswordDTO,
+  ): Promise<{ message: string }> {
+    return await this.authService.sendPasswordRecoveryEmail(
+      forgotPasswordDto.email,
+    );
+  }
+
+  @Get('reset-password/:token')
+  @ApiOperation({ summary: 'Verify password reset token' })
+  @ApiParam({
+    name: 'token',
+    description: 'The token used for password reset verification.',
+    type: String,
+  })
+  @ApiOkResponse({
+    description: 'Password reset token is valid.',
+    schema: {
+      example: {
+        message:
+          'Token to reset password is valid. You can now reset your password',
+      },
+    },
+  })
+  @ApiBadRequestResponse({
+    description: 'The token is invalid or expired.',
+    schema: {
+      example: {
+        statusCode: 401,
+        message: 'Invalid or expired token',
+        error: 'Bad Request',
+      },
+    },
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error while verifying the token.',
+  })
+  async verifyToken(
+    @Param('token') token: string,
+  ): Promise<{ message: string }> {
+    return await this.authService.verifyPasswordResetToken(token);
+  }
+
+  @Post('reset-password/:token')
+  @ApiOperation({ summary: 'Reset user password' })
+  @ApiParam({
+    name: 'token',
+    description: 'The token used for password reset.',
+    type: String,
+  })
+  @ApiBody({
+    description: 'New password for the user.',
+    type: ResetPasswordDto,
+  })
+  @ApiCreatedResponse({
+    description: 'Password has been successfully reset.',
+    schema: {
+      example: {
+        message: 'Password reset successfully',
+      },
+    },
+  })
+  @ApiBadRequestResponse({
+    description: 'Invalid password format or other validation errors.',
+  })
+  @ApiBadRequestResponse({
+    description: 'The token is invalid or expired.',
+    schema: {
+      example: {
+        statusCode: 401,
+        message: 'Invalid or expired token',
+        error: 'Bad Request',
+      },
+    },
+  })
+  @ApiNotFoundResponse({
+    description: 'Password update or token deletion failed for the user.',
+    schema: {
+      example: {
+        statusCode: 404,
+        message: 'The password has not been updated for the requesting user',
+        error: 'Not Found',
+      },
+    },
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Internal server error while resetting the password.',
+  })
+  async resetPassword(
+    @Param('token') token: string,
+    @Body() resetPasswordDto: ResetPasswordDto,
+  ): Promise<{ message: string }> {
+    return await this.authService.resetPassword(
+      token,
+      resetPasswordDto.password,
+    );
   }
 }
